@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:blank_flutter_app/dog_model.dart';
 
 class Dog {
   final String name;

@@ -34,6 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
     /// Scaffold is the base for a page.
     /// It gives an AppBar for the top,
     /// Space for the main body, bottom navigation, and more.
+    // this.initialDoggos.forEach((element) => element.getImageUrl());
+    // this.initialDoggos.forEach((element) => print(element.imageUrl));
     return new Scaffold(
 
         /// App bar has a ton of functionality, but for now lets
