@@ -1,5 +1,6 @@
 // main.dart
 import 'package:flutter/material.dart';
+import 'package:blank_flutter_app/dog_model.dart';
 
 void main() => runApp(new MyApp());
 
@@ -48,4 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
         /// can be used as a placeholder in your code.
         body: new Container());
   }
+
+  var initialDoggos = []
+    ..add(new Dog('Ruby', 'Portland, OR, USA',
+        'Ruby is a very good girl. Yes: Fetch, loungin\'. No: Dogs who get on furniture.'))
+    ..add(new Dog('Rex', 'Seattle, WA, USA', 'Best in Show 1999'))
+    ..add(new Dog('Rod Stewart', 'Prague, CZ',
+        'Star good boy on international snooze team.'))
+    ..add(new Dog('Herbert', 'Dallas, TX, USA', 'A Very Good Boy'))
+    ..add(
+        new Dog('Buddy', 'North Pole, Earth', 'Self problaimed human lover.'));
 }
