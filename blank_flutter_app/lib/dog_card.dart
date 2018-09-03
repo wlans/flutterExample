@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:blank_flutter_app/dog_model.dart';
+import 'package:blank_flutter_app/dog_detail_page.dart';
 
 class DogCard extends StatefulWidget {
   final Dog dog;
@@ -17,19 +18,20 @@ class _DogCardState extends State<DogCard> {
 
   @override
   Widget build(BuildContext context) {
-    return
-      new Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-      child: new Container(
-        height: 115.0,
-        child: new Stack(
-          children: <Widget>[
-            dogCard,
-            new Positioned(top: 10.5, left: -10.5, child: dogImage),
-          ],
-        ),
-      ),
-    );
+    return new InkWell(
+        onTap: showDogDetailPage,
+        child: new Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+          child: new Container(
+            height: 115.0,
+            child: new Stack(
+              children: <Widget>[
+                dogCard,
+                new Positioned(top: 10.5, left: -10.5, child: dogImage),
+              ],
+            ),
+          ),
+        ));
   }
 
   // dog_card.dart
@@ -138,5 +140,26 @@ class _DogCardState extends State<DogCard> {
     setState(() {
       renderUrl = dog.imageUrl;
     });
+  }
+
+  // This is the builder method that creates a new page.
+  showDogDetailPage() {
+    //
+    // Navigator.of(context) accesses the current apps navigator
+    // Navigators can 'push' new routes onto the stack,
+    // as well as pop routes off the stack.
+    //
+    // This is the easiest way to build a new
+    // page on the fly and pass that page
+    // some state from the current page
+    //
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+        // builder methods always take context!
+        builder: (context) {
+          return new DogDetailPage(dog);
+        },
+      ),
+    );
   }
 }
