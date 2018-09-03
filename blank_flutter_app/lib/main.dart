@@ -1,7 +1,7 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:blank_flutter_app/dog_model.dart';
-import 'package:blank_flutter_app/dog_card.dart';
+import 'package:blank_flutter_app/dog_list.dart';
 
 void main() => runApp(new MyApp());
 
@@ -51,11 +51,11 @@ class _MyHomePageState extends State<MyHomePage> {
         /// children. It doesn't take up any space itself, so it
         /// can be used as a placeholder in your code.
         body: new Container(
-          child: new DogCard(initialDoggos[1]),
+          child: new DogList(initialDoggos),
         ));
   }
 
-  var initialDoggos = []
+  var initialDoggos = <Dog>[]
     ..add(new Dog('Ruby', 'Portland, OR, USA',
         'Ruby is a very good girl. Yes: Fetch, loungin\'. No: Dogs who get on furniture.'))
     ..add(new Dog('Buckley', 'Seattle, WA, USA', 'Best in Show 1999'))

@@ -18,13 +18,13 @@ class _DogCardState extends State<DogCard> {
   @override
   Widget build(BuildContext context) {
     return new Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
       child: new Container(
         height: 115.0,
         child: new Stack(
           children: <Widget>[
             dogCard,
-            new Positioned(top: 7.5, child: dogImage),
+            new Positioned(top: 10.5, left: -10.5, child: dogImage),
           ],
         ),
       ),
@@ -82,7 +82,7 @@ class _DogCardState extends State<DogCard> {
           padding: const EdgeInsets.only(
             top: 8.0,
             bottom: 8.0,
-            left: 64.0,
+            left: 90.0,
           ),
           // Column is another layout widget -- like stack -- that
           // takes a list of widgets as children, and lays the
