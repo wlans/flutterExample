@@ -17,7 +17,8 @@ class _DogCardState extends State<DogCard> {
 
   @override
   Widget build(BuildContext context) {
-    return new Padding(
+    return
+      new Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
       child: new Container(
         height: 115.0,
