@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:blank_flutter_app/dog_model.dart';
 import 'package:blank_flutter_app/dog_list.dart';
+import 'package:blank_flutter_app/new_dog_form.dart';
+import 'dart:async';
 
 void main() => runApp(new MyApp());
 
@@ -45,6 +47,12 @@ class _MyHomePageState extends State<MyHomePage> {
           /// Access this widgets properties with 'widget'
           title: new Text(widget.title),
           backgroundColor: Colors.blue,
+          actions: <Widget>[
+            new IconButton(
+              icon: new Icon(Icons.add),
+              onPressed: _showNewDogForm,
+            )
+          ],
         ),
 
         /// Container is a convenience widget that lets us style it's
@@ -68,13 +76,39 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 
+  // Any time you're pushing a new route and expect that route
+  // To return something back to you,
+  // You need to use an async function
+  // In this case, the this function will create a form page
+  // Which the user can fill out, and submit
+  // And on submission, the information in that form page
+  // will be passed back to this function
+  //
+  Future<Null> _showNewDogForm() async {
+    // push a new route like you did in the last section
+    var newDog = await Navigator.of(context).push(
+      new MaterialPageRoute(
+        builder: (context) {
+          return new AddDogFormPage();
+        },
+      ),
+    );
+    // A null check, to make sure that the user
+    // didn't abandon the form
+    //
+    if (newDog != null) {
+      // Add a newDog to our mock dog array.
+      dogs.add(newDog);
+    }
+  }
+
   var dogs = <Dog>[]
     ..add(new Dog('Ruby', 'Portland, OR, USA',
         'Ruby is a very good girl. Yes: Fetch, loungin\'. No: Dogs who get on furniture.'))
     ..add(new Dog('Buckley', 'Austin, TX, USA', 'Best in Show 1999'))
     ..add(new Dog('Rod Stewart', 'Dublin, Ireland',
         'Star good boy on international snooze team.'))
-    ..add(new Dog('Herbert', 'Dallas, TX, USA', 'A Very Good Boy'))
+    ..add(new Dog('Hailey', 'Austin, TX, USA', 'A Very Good Boy'))
     ..add(
         new Dog('Buddy', 'North Pole, Earth', 'Self problaimed human lover.'));
 }
