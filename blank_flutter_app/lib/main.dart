@@ -44,22 +44,35 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: new AppBar(
           /// Access this widgets properties with 'widget'
           title: new Text(widget.title),
-          backgroundColor: Colors.black87,
+          backgroundColor: Colors.blue,
         ),
 
         /// Container is a convenience widget that lets us style it's
         /// children. It doesn't take up any space itself, so it
         /// can be used as a placeholder in your code.
         body: new Container(
-          child: new DogList(initialDoggos),
+          decoration: new BoxDecoration(
+            gradient: new LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.1, 0.5, 0.6, 0.9],
+              colors: [
+                Colors.indigo[800],
+                Colors.indigo[200],
+                Colors.indigo[600],
+                Colors.indigo[400],
+              ],
+            ),
+          ),
+          child: new DogList(dogs),
         ));
   }
 
-  var initialDoggos = <Dog>[]
+  var dogs = <Dog>[]
     ..add(new Dog('Ruby', 'Portland, OR, USA',
         'Ruby is a very good girl. Yes: Fetch, loungin\'. No: Dogs who get on furniture.'))
-    ..add(new Dog('Buckley', 'Seattle, WA, USA', 'Best in Show 1999'))
-    ..add(new Dog('Rod Stewart', 'Prague, CZ',
+    ..add(new Dog('Buckley', 'Austin, TX, USA', 'Best in Show 1999'))
+    ..add(new Dog('Rod Stewart', 'Dublin, Ireland',
         'Star good boy on international snooze team.'))
     ..add(new Dog('Herbert', 'Dallas, TX, USA', 'A Very Good Boy'))
     ..add(
