@@ -1,6 +1,7 @@
 // main.dart
 import 'package:flutter/material.dart';
 import 'package:blank_flutter_app/dog_model.dart';
+import 'package:blank_flutter_app/dog_card.dart';
 
 void main() => runApp(new MyApp());
 
@@ -49,13 +50,15 @@ class _MyHomePageState extends State<MyHomePage> {
         /// Container is a convenience widget that lets us style it's
         /// children. It doesn't take up any space itself, so it
         /// can be used as a placeholder in your code.
-        body: new Container());
+        body: new Container(
+          child: new DogCard(initialDoggos[1]),
+        ));
   }
 
   var initialDoggos = []
     ..add(new Dog('Ruby', 'Portland, OR, USA',
         'Ruby is a very good girl. Yes: Fetch, loungin\'. No: Dogs who get on furniture.'))
-    ..add(new Dog('Rex', 'Seattle, WA, USA', 'Best in Show 1999'))
+    ..add(new Dog('Buckley', 'Seattle, WA, USA', 'Best in Show 1999'))
     ..add(new Dog('Rod Stewart', 'Prague, CZ',
         'Star good boy on international snooze team.'))
     ..add(new Dog('Herbert', 'Dallas, TX, USA', 'A Very Good Boy'))
