@@ -17,19 +17,16 @@ class _DogCardState extends State<DogCard> {
 
   @override
   Widget build(BuildContext context) {
-    // Start with a container so we can add layout and style props:
-    return new Container(
-      // Arbitrary number that I decided looked good:
-      height: 115.0,
-      // A stack takes children, with a list of widgets.
-      child: new Stack(
-        children: <Widget>[
-          // position our dog image, so we can explicitly place it.
-          // We'll place it after we've made the card.
-          new Positioned(
-            child: dogImage,
-          ),
-        ],
+    return new Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: new Container(
+        height: 115.0,
+        child: new Stack(
+          children: <Widget>[
+            dogCard,
+            new Positioned(top: 7.5, child: dogImage),
+          ],
+        ),
       ),
     );
   }
@@ -67,6 +64,59 @@ class _DogCardState extends State<DogCard> {
     );
 
     return dogAvatar;
+  }
+
+  Widget get dogCard {
+    // A new container
+    // The height and width are arbitrary numbers for styling
+    return new Container(
+      width: 290.0,
+      height: 115.0,
+      child: new Card(
+        color: Colors.black87,
+        // Wrap children in a Padding widget in order to give padding.
+        child: new Padding(
+          // The class that controls padding is called 'EdgeInsets'
+          // The EdgeInsets.only constructor is used to set
+          // paddings explicitly to each side of the child.
+          padding: const EdgeInsets.only(
+            top: 8.0,
+            bottom: 8.0,
+            left: 64.0,
+          ),
+          // Column is another layout widget -- like stack -- that
+          // takes a list of widgets as children, and lays the
+          // widgets out from top to bottom
+          child: new Column(
+            // these alignment properties function exactly like
+            // CSS flexbox properties.
+            // The main axis of a column is the vertical axis,
+            // `MainAxisAlignment.spaceAround` is equivelent of
+            // CSS's 'justify-content: space-around' in a vertically
+            // laid out flexbox.
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              new Text(widget.dog.name,
+                  // Themes are set inthe MaterialApp widget at the root of your app.
+                  // They have default values -- which we're using because we didn't set our own.
+                  // They're great for having consistent, app wide styling that's easily changable.
+                  style: Theme.of(context).textTheme.headline),
+              new Text(widget.dog.location,
+                  style: Theme.of(context).textTheme.subhead),
+              new Row(
+                children: <Widget>[
+                  new Icon(
+                    Icons.star,
+                  ),
+                  new Text(': ${widget.dog.rating} / 10')
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   // State classes run this method when the state is created.
