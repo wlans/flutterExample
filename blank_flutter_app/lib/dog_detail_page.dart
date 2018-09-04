@@ -124,23 +124,115 @@ class _DogDetailPageState extends State<DogDetailPage> {
     );
   }
 
-  //Finally, the build method:
+  // This is the starting value of the slider.
+  double _sliderValue = 10.0;
+
+  Widget get addYourRating {
+    return new Column(
+      children: <Widget>[
+        new Container(
+          padding: new EdgeInsets.symmetric(
+            vertical: 16.0,
+            horizontal: 16.0,
+          ),
+          child: new Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              // In a row, column, listview etc
+              // A Flexible Widget is a wrapper
+              // That works much like CSS's flex-grow property
+              //
+              // Any room left over in in the main axis after
+              // the Widgets are given their width (in this case,
+              // because its a row) -
+              // will be distributed to all the flexible widgets
+              // at a ratio based on the flex property you pass in
+              // Because this is the only Flexible,
+              // It will take up *all** the extra space
+              //
+              // Or in other words, it will expand as much as it can until
+              // the all the space is taken up
+              new Flexible(
+                flex: 1,
+
+                // A slider, like many form elements,
+                // Needs to know its own value
+                // and how to update it's value
+                //
+                // The slider will call the `onChanged` whenever
+                // it changes. But it will only repaint
+                // when it's value property changes in the state
+                // using 'setState'
+                //
+                // The workflow is:
+                // 1. User drags the slider
+                // 2. onChanged is called
+                // 3. the callback in onChanged set 'sliderValue' state
+                // 4. Flutter repaints everything that relies on 'sliderValue'
+                // 5. In this case, just the slider, which is at it's new value
+                //
+                child: new Slider(
+                  onChanged: (newRating) {
+                    setState(() => _sliderValue = newRating);
+                  },
+                  activeColor: Colors.indigoAccent,
+                  min: 0.0,
+                  max: 15.0,
+                  value: _sliderValue,
+                ),
+              ),
+
+              // This is the part that displates the value
+              // of the slider
+              // The width is an arbitrary size that
+              // I chose for styles
+              new Container(
+                width: 50.0,
+                alignment: Alignment.center,
+                child: new Text('${_sliderValue.toInt()}',
+                    style: Theme.of(context).textTheme.display1),
+              ),
+            ],
+          ),
+        ),
+        // This widget is built below:
+        submitRatingButton,
+      ],
+    );
+  }
+
+  // In the next section you'll add error handling.
+  // For now this is all it does.
+  void updateRating() {
+    setState(() => widget.dog.rating = _sliderValue.toInt());
+  }
+
+  // A simple Raised Buttonw
+  // That as of now doesn't do anything but print
   //
-  // Aside:
-  // It's often much easier to build UI
-  // If you break up your widgets
-  // the way I have in this file
-  // rather than trying to have one massive build method
+  Widget get submitRatingButton {
+    return new RaisedButton(
+      onPressed: () => updateRating(),
+      child: new Text('Submit'),
+      color: Colors.indigoAccent,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // This is a new page, so you need a new Scaffold!
     return new Scaffold(
       backgroundColor: Colors.black87,
       appBar: new AppBar(
         backgroundColor: Colors.black87,
         title: new Text('Meet ${widget.dog.name}'),
       ),
-      body: dogProfile,
+      // Make the body a ListView that displays
+      // both the profile and the rating form
+      //
+      body: new ListView(
+        // updated
+        children: <Widget>[dogProfile, addYourRating],
+      ),
     );
   }
 }
