@@ -8,6 +8,10 @@ class AddDogFormPage extends StatefulWidget {
 }
 
 class _AddDogFormPageState extends State<AddDogFormPage> {
+  // One TextEditingController for each form input:
+  TextEditingController nameController = new TextEditingController();
+  TextEditingController locationController = new TextEditingController();
+  TextEditingController descriptionController = new TextEditingController();
   @override
   Widget build(BuildContext context) {
     // new page needs scaffolding!
@@ -32,6 +36,12 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
                 // UI and functionality, such as the
                 // labelText field you see below
                 child: new TextField(
+                    // Tell your textfield which controller it owns
+                    controller: nameController, // new
+                    // Every single time the text changes in a
+                    // TextField, this onChanged callback is called
+                    // and it pass in the value
+                    onChanged: (v) => nameController.text = v,
                     autofocus: true,
                     decoration: new InputDecoration(
                       labelText: 'Name the Pup',
@@ -40,13 +50,23 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
               new Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: new TextField(
+                    controller: locationController, // new
+                    // Every single time the text changes in a
+                    // TextField, this onChanged callback is called
+                    // and it pass in the value
+                    onChanged: (v) => locationController.text = v,
                     decoration: new InputDecoration(
-                  labelText: "Pups location",
-                )),
+                      labelText: "Pups location",
+                    )),
               ),
               new Padding(
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: new TextField(
+                  controller: descriptionController, // new
+                  // Every single time the text changes in a
+                  // TextField, this onChanged callback is called
+                  // and it pass in the value
+                  onChanged: (v) => descriptionController.text = v,
                   decoration: new InputDecoration(
                     labelText: 'All about the pup',
                   ),
@@ -66,7 +86,7 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
                     return new RaisedButton(
                       // if onPressed is null, the button is disabled
                       // this is my goto temporary callback
-                      onPressed: () => print('PRESSED'),
+                      onPressed: () => submitPup(context),
                       color: Colors.indigoAccent,
                       child: new Text('Submit Pup'),
                     );
@@ -78,5 +98,25 @@ class _AddDogFormPageState extends State<AddDogFormPage> {
         ),
       ),
     );
+  }
+
+  // You'll need the context
+  // in order for the Navigator to work.
+  void submitPup(context) {
+    // first make sure there is some information
+    // in the form.
+    // A dog needs a name, but may be location independent
+    // So we'll only abandon the save if theres no name.
+    if (nameController.text.isEmpty) {
+      print('Dogs need names!');
+    } else {
+      // Create a new dog wit hthe information from the form
+      var newDog = new Dog(nameController.text, locationController.text,
+          descriptionController.text);
+      // Pop the page off the route stack
+      // and pass the new dog back to wherever this page
+      // was created.
+      Navigator.of(context).pop(newDog);
+    }
   }
 }
